@@ -1,0 +1,30 @@
+{
+  "name": "terraform_template",
+  "version": "1.0.0",
+  "description": "terraform_template naja",
+  "main": "index.js",
+  "scripts": {
+    "tterraform": "bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OnagiNagao/terraform_template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OnagiNagao/terraform_template/issues"
+  },
+  "homepage": "https://github.com/OnagiNagao/terraform_template#readme",
+  "dependencies": {
+    "adm-zip": "git://github.com/cthackers/adm-zip.git",
+    "chalk": "^2.1.0",
+    "commander": "^2.11.0",
+    "figlet": "^1.2.0",
+    "inquirer": "^3.3.0",
+    "shelljs": "^0.7.8"
+  },
+  "bin": {
+    "tterraform": "bin/index.js"
+  }
+}

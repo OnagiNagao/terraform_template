@@ -1,2 +1,4 @@
 .idea/*
 */.tfstate*
+node_modules
+template

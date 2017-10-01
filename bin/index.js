@@ -86,8 +86,8 @@ program
     .action(function(projectName, options) {
         console.log("Deploy Project:", projectName);
         let projectPath = process.cwd() + '/' + projectName;
-        shell.exec('terraform plan  -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
-        // shell.exec('terraform apply  -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
+        shell.exec('terraform plan -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
+        // shell.exec('terraform apply -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
     });
 
 program
@@ -102,8 +102,8 @@ program
         }).then(function (answers) {
             if (answers['confirm']) {
                 let projectPath = process.cwd() + '/' + projectName;
-                shell.exec('terraform plan -destroy ' + projectPath);
-                // shell.exec('terraform destroy -force ' + projectPath);
+                shell.exec('terraform plan -destroy -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
+                // shell.exec('terraform destroy -force -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
             }
         });
     });

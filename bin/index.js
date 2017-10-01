@@ -16,57 +16,68 @@ const RESOURCE_URL = 'https://raw.githubusercontent.com/OnagiNagao/terraform_tem
 program
     .command('init <projectName>')
     .description('init terraform project')
-    .option('-m, --module <module>', 'The AWS\'s module', /^(ec2|apiGateWay)$/i)
+    .option('-m, --module <module>', 'The AWS\'s module', /^(ec2)$/i)
+    // .option('-m, --module <module>', 'The AWS\'s module', /^(ec2|apiGateWay)$/i)
     .action(function(projectName, options) {
         console.log(chalk.rgb(0,255,174)(
             figlet.textSync('#  TTerraform  #', { horizontalLayout: 'fitted' })
         ));
 
         console.log("Init Project:", projectName);
+        if (options.module == true) {
+            console.log(chalk.red('Error: invalid module name'));
+            return;
+        }else if (options.module == undefined){
+            options.module = 'new';
+        }
 
         var directoryPrefix = projectName;
-        if (options.module == undefined){
-            console.log('in undefined');
-        } else if (options.module == true) {
-            console.log('in true');
-        } else if (options.module == 'ec2') { // TODO:: change to else & switch case
-            console.log("Init module:", options.module);
+        console.log("Init module:", options.module);
 
-            var fileUrl = RESOURCE_URL+options.module+".zip";
-            var output = options.module + ".zip";
-            request({url: fileUrl, encoding: null}, function(err, res, body) {
-                if(err) throw err;
-                fs.mkdir(directoryPrefix);
-                fs.writeFile(directoryPrefix+"/"+output, body, function(err) {
+        var fileUrl = RESOURCE_URL+options.module+".zip";
+        var output = options.module + ".zip";
+        request({url: fileUrl, encoding: null}, function(err, res, body) {
+            if(err) throw err;
+            fs.mkdir(directoryPrefix);
+            fs.writeFile(directoryPrefix+"/"+output, body, function(err) {
 
-                    console.log('... download template success');
+                console.log('... download template success');
 
-                    var zip = new AdmZip(directoryPrefix+"/"+output);
-                    zip.extractAllTo(directoryPrefix, /*overwrite*/true);
-                    fs.unlink(directoryPrefix+"/"+output);
+                var zip = new AdmZip(directoryPrefix+"/"+output);
+                zip.extractAllTo(directoryPrefix, /*overwrite*/true);
+                fs.unlink(directoryPrefix+"/"+output);
 
-                    console.log('... prepare template success');
-                    console.log('... start configuration\n');
+                console.log('... prepare template success');
+                console.log('... start configuration');
 
-                    var prompt = require(process.cwd() + '/ec2_bk/prompt.js')
-                    inquirer.prompt(prompt).then(function (answers) {
+                fs.access(directoryPrefix + '/prompt.js', fs.constants.R_OK, function (err) {
+                    if (err) {
+                        console.log('... no additional configuration file');
+                        console.log(chalk.green("Init Project: " + projectName + " SUCCESS"));
+                    }
+                    else {
+                        var prompt = require(process.cwd() + '/' + directoryPrefix + '/prompt.js')
 
-                        let content = '';
-                        for( key  in answers ){
-                            content += (key + '=' + '"' + answers[key] + '"');
-                            content += '\r\n';
-                        }
-                        console.log(content);
+                        console.log('');
+                        inquirer.prompt(prompt).then(function (answers) {
 
-                        fs.writeFile(directoryPrefix+'/' + projectName + '.tfvars', content, function (err) {
-                            if (err) return console.log(err);
-                            console.log('... write configuration file success');
-                            console.log(chalk.green("Init Project: " + projectName + " SUCCESS"));
+                            let content = '';
+                            for( key  in answers ){
+                                content += (key + '=' + '"' + answers[key] + '"');
+                                content += '\r\n';
+                            }
+                            console.log(content);
+
+                            fs.writeFile(directoryPrefix+'/' + projectName + '.tfvars', content, function (err) {
+                                if (err) return console.log(err);
+                                console.log('... write configuration file success');
+                                console.log(chalk.green("Init Project: " + projectName + " SUCCESS"));
+                            });
                         });
-                    });
+                    }
                 });
             });
-        }
+        });
     });
 
 program
@@ -76,7 +87,7 @@ program
         console.log("Deploy Project:", projectName);
         let projectPath = process.cwd() + '/' + projectName;
         shell.exec('terraform plan  -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
-        shell.exec('terraform apply  -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
+        // shell.exec('terraform apply  -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
     });
 
 program
@@ -92,7 +103,7 @@ program
             if (answers['confirm']) {
                 let projectPath = process.cwd() + '/' + projectName;
                 shell.exec('terraform plan -destroy ' + projectPath);
-                shell.exec('terraform destroy -force ' + projectPath);
+                // shell.exec('terraform destroy -force ' + projectPath);
             }
         });
     });
@@ -102,12 +113,6 @@ program
 //     .description('test')
 //     .action(function(options) {
 //         console.log("Test Project:");
-//         var a = require(process.cwd() + '/ec2_bk/prompt.js')
-//         console.log(a);
-//         console.log(a[0]['name']);
-//         inquirer.prompt(a).then(function (answers) {
-//             console.log(answers);
-//         });
 //     });
 
 program.parse(process.argv);

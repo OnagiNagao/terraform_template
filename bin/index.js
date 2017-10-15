@@ -27,7 +27,7 @@ program
             }
 
             console.log(chalk.rgb(0, 255, 174)(
-                figlet.textSync('#  TTerraform  #', {horizontalLayout: 'fitted'})
+                figlet.textSync('#  TRform  #', {horizontalLayout: 'fitted'})
             ));
             project.init(projectName, options.module, EXECUTE_DIR);
 

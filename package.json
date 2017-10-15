@@ -4,7 +4,7 @@
   "description": "terraform_template naja",
   "main": "index.js",
   "scripts": {
-    "tterraform": "bin/index.js",
+    "trform": "bin/index.js",
     "unit-test": "NODE_ENV=test mocha 'test/*.spec.js'"
   },
   "repository": {
@@ -27,7 +27,7 @@
     "shelljs": "^0.7.8"
   },
   "bin": {
-    "tterraform": "bin/index.js"
+    "trform": "bin/index.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "tterraform": "bin/index.js",
-    "test": "./node_modules/.bin/mocha --colors test/*",
-    "test-unit": "NODE_ENV=test mocha '/**/*.spec.js'"
+    "unit-test": "NODE_ENV=test mocha 'test/*.spec.js'"
   },
   "repository": {
     "type": "git",
@@ -20,13 +19,12 @@
   "homepage": "https://github.com/OnagiNagao/terraform_template#readme",
   "dependencies": {
     "adm-zip": "git://github.com/cthackers/adm-zip.git",
+    "chai-spies": "^0.7.1",
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
     "figlet": "^1.2.0",
     "inquirer": "^3.3.0",
-    "mz": "^2.7.0",
-    "shelljs": "^0.7.8",
-    "sinon": "^4.0.1"
+    "shelljs": "^0.7.8"
   },
   "bin": {
     "tterraform": "bin/index.js"
@@ -39,6 +37,8 @@
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
     "mocha": "^4.0.1",
+    "sinon": "^4.0.1",
+    "sinon-chai": "^2.14.0",
     "webpack": "^3.7.1"
   }
 }

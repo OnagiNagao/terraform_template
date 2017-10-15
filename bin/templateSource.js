@@ -38,21 +38,21 @@ class templateSource {
         });
     }
 
+    extractZip() {
+        var zip = new AdmZip(this.templateZipPath);
+        zip.extractAllTo(this.projectPath, /*overwrite*/true);
+    }
+
     async downloadTemplate() {
         let content = await this.getSourceTemplate(null)
             .catch((err)=>{this.errorHandler(err);});
 
         fs.mkdir(this.projectPath, (err) => { if (err) throw (err); })
-            .catch((err)=>{this.errorHandler(err);});
-
         await this.writeSourceTemplate(content)
             .catch((err)=>{this.errorHandler(err);});
 
-        var zip = new AdmZip(this.templateZipPath);
-        zip.extractAllTo(this.projectPath, /*overwrite*/true);
-
+        this.extractZip();
         await fs.unlink(this.templateZipPath, (err) => { if (err) throw (err); })
-            .catch((err)=>{this.errorHandler(err);});
     }
 
     readPromptFie() {

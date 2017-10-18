@@ -44,15 +44,24 @@ class templateSource {
     }
 
     async downloadTemplate() {
-        let content = await this.getSourceTemplate(null)
-            .catch((err)=>{this.errorHandler(err);});
+        try {
+            let content = await this.getSourceTemplate(null)
+            // .catch((err)=>{this.errorHandler(err);});
 
-        fs.mkdir(this.projectPath, (err) => { if (err) throw (err); })
-        await this.writeSourceTemplate(content)
-            .catch((err)=>{this.errorHandler(err);});
+            fs.mkdir(this.projectPath, (err) => {
+                if (err) throw (err);
+            })
+            await this.writeSourceTemplate(content)
+            // .catch((err)=>{this.errorHandler(err);});
 
-        this.extractZip();
-        await fs.unlink(this.templateZipPath, (err) => { if (err) throw (err); })
+            this.extractZip();
+            await fs.unlink(this.templateZipPath, (err) => {
+                if (err) throw (err);
+            })
+        } catch (e) {
+            console.log(e.message);
+
+        }
     }
 
     readPromptFie() {
@@ -76,7 +85,7 @@ class templateSource {
         console.log(content);
 
         fs.writeFile(this.tfvarsFilePath, content, (err) => {
-            if (err) return console.log(err);
+            if (err) {return this.errorHandler(err)};
             console.log('... write configuration file success');
             console.log(chalk.green("Init Project: " + this.projectName + " SUCCESS"));
         });

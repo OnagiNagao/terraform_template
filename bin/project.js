@@ -30,11 +30,11 @@ module.exports = {
     deploy(projectName, executeDir) {
         let projectPath = executeDir + '/' + projectName;
         shell.exec('terraform plan -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
-        // shell.exec('terraform apply -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
+        shell.exec('terraform apply -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
     },
     destroy(projectName, executeDir) {
         let projectPath = executeDir + '/' + projectName;
         shell.exec('terraform plan -destroy -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
-        // shell.exec('terraform destroy -force -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
+        shell.exec('terraform destroy -force -var-file='+ projectPath + '/' + projectName + '.tfvars ' + projectPath);
     }
 };

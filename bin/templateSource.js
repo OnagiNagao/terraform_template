@@ -46,13 +46,13 @@ class templateSource {
     async downloadTemplate() {
         try {
             let content = await this.getSourceTemplate(null)
-            // .catch((err)=>{this.errorHandler(err);});
+            .catch((err)=>{this.errorHandler(err);});
 
             fs.mkdir(this.projectPath, (err) => {
                 if (err) throw (err);
             })
             await this.writeSourceTemplate(content)
-            // .catch((err)=>{this.errorHandler(err);});
+            .catch((err)=>{this.errorHandler(err);});
 
             this.extractZip();
             await fs.unlink(this.templateZipPath, (err) => {

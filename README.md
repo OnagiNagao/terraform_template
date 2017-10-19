@@ -18,8 +18,8 @@ And you can also use trform command to deploy or destroy on AWS.
     └── prompt.js
 ```
 ## Usage
-####trform [options] [command] {projectName}
-
+#### trform [options] [command] {projectName}
+```
   Options:
 
     -h, --help  output usage information
@@ -29,16 +29,21 @@ And you can also use trform command to deploy or destroy on AWS.
     init [options] <projectName>  init terraform project
     deploy <projectName>          deploy terraform project
     destroy <projectName>         destroy terraform project
-
-#####trform init [options] {projectName}
-
+```
+* **trform init [options] {projectName}**
+```
   Options:
 
     -m, --module <module>  The AWS's module
     -h, --help             output usage information
+```
+* **trform deploy {projectName}**
+* **trform destroy {projectName}**
 
-#####trform deploy {projectName}
-#####trform destroy {projectName}
+## Avaliable Module
+In init option, there are module option (-m) that provide terraform script template with required resource to start the project.
+
+* ec2
 
 ## Example
 

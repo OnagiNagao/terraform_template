@@ -1,22 +1,22 @@
 {
-  "name": "terraform_template",
+  "name": "trform",
   "version": "1.0.0",
-  "description": "terraform_template naja",
+  "description": "quickly & easy terraform template",
   "main": "index.js",
   "scripts": {
     "trform": "bin/index.js",
-    "unit-test": "NODE_ENV=test mocha 'test/*.spec.js'"
+    "test": "NODE_ENV=test mocha 'test/*.spec.js'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OnagiNagao/terraform_template.git"
+    "url": "git+https://github.com/OnagiNagao/trform.git"
   },
-  "author": "",
+  "author": "nagao",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OnagiNagao/terraform_template/issues"
+    "url": "https://github.com/OnagiNagao/trform/issues"
   },
-  "homepage": "https://github.com/OnagiNagao/terraform_template#readme",
+  "homepage": "https://github.com/OnagiNagao/trform#readme",
   "dependencies": {
     "adm-zip": "git://github.com/cthackers/adm-zip.git",
     "chai-spies": "^0.7.1",

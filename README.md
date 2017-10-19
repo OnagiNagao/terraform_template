@@ -2,7 +2,7 @@
 TRform is easy way to create terraform by using terraform template
 
 ## Installation
-    npm i terraform_template
+    npm install trform
 
 ## Explanation
 You have to run trform command at the parent directory of your project, TRform have will get your requesting template and prompt the require/optional parameters to generate configuration file.
